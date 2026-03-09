@@ -38,6 +38,45 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+     # Спортивні активності
+    "Football Team": {
+        "description": "Join the school football team and compete in matches",
+        "schedule": "Tuesdays, 4:00 PM - 6:00 PM",
+        "max_participants": 25,
+        "participants": []
+    },
+    "Swimming Club": {
+        "description": "Improve your swimming skills and participate in competitions",
+        "schedule": "Thursdays, 3:00 PM - 4:30 PM",
+        "max_participants": 15,
+        "participants": []
+    },
+    # Артистичні активності
+    "Drama Club": {
+        "description": "Act, direct, and perform in school plays",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": []
+    },
+    "Art Workshop": {
+        "description": "Explore painting, drawing, and sculpture",
+        "schedule": "Mondays, 4:00 PM - 5:30 PM",
+        "max_participants": 18,
+        "participants": []
+    },
+    # Інтелектуальні активності
+    "Math Olympiad": {
+        "description": "Prepare for math competitions and solve challenging problems",
+        "schedule": "Fridays, 2:00 PM - 3:30 PM",
+        "max_participants": 10,
+        "participants": []
+    },
+    "Science Club": {
+        "description": "Conduct experiments and learn about scientific discoveries",
+        "schedule": "Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 16,
+        "participants": []
     }
 }
 
@@ -62,6 +101,10 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specific activity
     activity = activities[activity_name]
 
+    # Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Student already signed up")
+    
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
